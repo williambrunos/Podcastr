@@ -166,7 +166,9 @@ export const getStaticPaths: GetStaticPaths = async() => {
   return {
     // Paths that we want to generate statically
     paths: [],
-    // fallback blocking is the best option for SEO, because the requisitions will be charged on next.js server and the page will only be rendered when next.js give a callback for the requisition.
+    /* 
+      fallback blocking is the best option for SEO, because the requisitions will be charged on next.js server and the  page will only be rendered when next.js give a callback for the requisition.
+    */
     fallback: 'blocking',
   }
 }
