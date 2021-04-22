@@ -4,6 +4,14 @@
 
 ### Consuming the API with SPA
 
+- Since this point, you have to digit the following command to see everything running well:
+
+```
+yarn add json-server -D
+
+yarn server
+```
+
 - useEffect is a react hook that is going to execute a function when a value of a variable(given on an array) changes. In case of executing the function when a component is rendering on the screen, we give an empty array as argument. This strategy still bad for SEO, because web crawlers will not wait until the requisition responds for indexing the webpage, and we still have the problem of the indexers robots with disabled java script.
 
 
@@ -41,6 +49,10 @@ export async function getServerSideProps() {
 
 - OBS: We just need to set a revalidate value on the return of the function and change it's name for "getStaticProps". Otherwise, the SSG strategy only works when the project is on production, and because of this is important to make a build of the project to consume the API,
 Using yarn build command and yarn start after build the page.
+
+```
+yarn build
+```
 
 
 ```JS
@@ -152,9 +164,13 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 
 export const getStaticPaths: GetStaticPaths = async() => {
   return {
+    // Paths that we want to generate statically
     paths: [],
+    // fallback blocking is the best option for SEO, because the requisitions will be charged on next.js server and the page will only be rendered when next.js give a callback for the requisition.
     fallback: 'blocking',
   }
 }
 ```
+### Context API
 
+- The context API allow our react app components to use properties or data from another component or even change it. In fact, we can share data between our application components.

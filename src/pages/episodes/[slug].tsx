@@ -27,6 +27,11 @@ type EpisodeProps = {
 export default function Episode({ episode }: EpisodeProps) {
   const router = useRouter();
 
+  // If router is on fallback mode(true), rendering not static data from the API...
+  if(router.isFallback) {
+    <p>Carregando...</p>
+  }
+
   return (
     <div className={styles.episode}>
       <div className={styles.thumbnailContainer}>
@@ -58,9 +63,29 @@ export default function Episode({ episode }: EpisodeProps) {
   );
 }
 
+// We have to use this method whenever we generate static pages with dynamic routes
 export const getStaticPaths: GetStaticPaths = async() => {
+
+  const { data } = await api.get('episodes', 
+  {
+    params: {
+      _limit: 12,
+      _sort: 'published_at',
+      _order: 'desc'
+    }
+  });
+
+  const paths = data.map(episode => {
+    return {
+      params: {
+        slug: episode.id
+      }
+    }
+  });
+
   return {
-    paths: [],
+    paths,
+    // fallback blocking is the best option for SEO, because the requisitions will be charged on next.js server and the page will only be rendered when next.js give a callback for the requisition.
     fallback: 'blocking',
   }
 }
