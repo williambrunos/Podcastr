@@ -1,10 +1,65 @@
 # About this project
 
-- This project is a web application that the community is developing on the event "Next Level Week" made by Rocketseat, using ReactJS, Next.js and using important concepts in the web front end development, like Single Page Applications, Server Side Rendering, Static Site Generation and good practices for SEO.
+This project is a web application that the community is developing on the event "Next Level Week" made by Rocketseat, using ReactJS, Next.js and using important concepts in the web front end development, like Single Page Applications, Server Side Rendering, Static Site Generation and good practices for SEO.
+
+You have a webpage with some podcasts generated stacticly with next.js. If you click on the green play button, you will hear the podcast running. Also you can hear the next and previous podcast with the buttons on the interface and shuffle the order of the playlist.
+Also you can click on the podcast title to see the description of it and play only the podcast that you've clicked.
+
+### Requirements to run this project on developing dependency
+
+```
+install npm
+install yarn
+install node
+```
+
+## Commands
+
+### Create React app with Next.js
+
+```
+create-next-app podcastrnext
+```
+
+### Install Typescript with next.js
+
+```
+yarn add typescript @types/react @types/node -D
+```
+
+### Install the SASS(different CSS)
+
+````
+yarn add sass
+````
+
+### Install the library to treat with dates
+
+````
+yarn add date-fns
+````
+### Run the fake API json-server
+
+```
+yarn add json-server -D
+yarn server
+```
+### Run the developing dependency project
+
+```
+yarn dev
+```
+
+### Run the build of the project
+
+```
+yarn build
+yarn start
+```
 
 ### Consuming the API with SPA
 
-- Since this point, you have to digit the following command to see everything running well:
+Since this point, you have to digit the following command to see everything running well:
 
 ```
 yarn add json-server -D
@@ -12,7 +67,7 @@ yarn add json-server -D
 yarn server
 ```
 
-- useEffect is a react hook that is going to execute a function when a value of a variable(given on an array) changes. In case of executing the function when a component is rendering on the screen, we give an empty array as argument. This strategy still bad for SEO, because web crawlers will not wait until the requisition responds for indexing the webpage, and we still have the problem of the indexers robots with disabled java script.
+useEffect is a react hook that is going to execute a function when a value of a variable(given on an array) changes. In case of executing the function when a component is rendering on the screen, we give an empty array as argument. This strategy still bad for SEO, because web crawlers will not wait until the requisition responds for indexing the webpage, and we still have the problem of the indexers robots with disabled java script.
 
 
 ```JS
@@ -26,7 +81,7 @@ useEffect(() => {
 
 ### Consuming an API with SSR
 
-- We can consume an API with next.js using the SSR strategy adding a function in any archive of "pages" folder. The requisition for the data is made on the next.js layer, not by the browser. The getServerSideProps executes every time someone access the home of our application.
+We can consume an API with next.js using the SSR strategy adding a function in any archive of "pages" folder. The requisition for the data is made on the next.js layer, not by the browser. The getServerSideProps executes every time someone access the home of our application.
 
 
 ```JS
@@ -45,9 +100,9 @@ export async function getServerSideProps() {
 
 ### Consuming the API with SSG
 
-- As we explained previously, with the SSR strategy for rendering the data of the API, the data will be rendered every time someone access our application. But we really need that going on? No, we don't! We don't need to update the data for our application every time someone access it, and because of this we are going to use the SSG strategy for rendering the data of the API. Which means that we are going to do a requisition for the API when some user access the web app, and for the following users that access the Home after the first one, we will not do a lot of requisitions for each one, we will return the same data for all of them.
+As we explained previously, with the SSR strategy for rendering the data of the API, the data will be rendered every time someone access our application. But we really need that going on? No, we don't! We don't need to update the data for our application every time someone access it, and because of this we are going to use the SSG strategy for rendering the data of the API. Which means that we are going to do a requisition for the API when some user access the web app, and for the following users that access the Home after the first one, we will not do a lot of requisitions for each one, we will return the same data for all of them.
 
-- OBS: We just need to set a revalidate value on the return of the function and change it's name for "getStaticProps". Otherwise, the SSG strategy only works when the project is on production, and because of this is important to make a build of the project to consume the API,
+ - OBS: We just need to set a revalidate value on the return of the function and change it's name for "getStaticProps". Otherwise, the SSG strategy only works when the project is on production, and because of this is important to make a build of the project to consume the API,
 Using yarn build command and yarn start after build the page.
 
 ```
@@ -72,13 +127,13 @@ export async function getStaticProps() {
 
 ### Using HTTP requisitions 
 
-- In this project, we used Axios for HTTP requisitions. Type the command on the terminal:
+In this project, we used Axios for HTTP requisitions. Type the command on the terminal:
 
 ```
   yarn add axios
 ```
 
-- After that, we now can change the SSG function using api.get instead of fetch(). For this, create an archive named api.ts and configure the route of the api:
+After that, we now can change the SSG function using api.get instead of fetch(). For this, create an archive named api.ts and configure the route of the api:
 
 ```JS
 import axios from 'axios';
@@ -88,7 +143,7 @@ export const api = axios.create({
 }); 
 ```
 
-- After that, we now can write the fetch function above on the index.tsx archive like this:
+After that, we now can write the fetch function above on the index.tsx archive like this:
 
 ```JS
 // Import the types(parameters and return) of getStaticProps function
@@ -131,7 +186,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
 ### Good Practice using React
 
-- It's a bad practice on ReactJS format our data in the return of the function. Why? Because this formatted data is going to happen whenever the component is rendered in the application. And because of that is a good practice format the data at the moment after receiving it from the API.
+It's a bad practice on ReactJS format our data in the return of the function. Why? Because this formatted data is going to happen whenever the component is rendered in the application. And because of that is a good practice format the data at the moment after receiving it from the API.
 
 ```JS
 const episodes = data.map(episode => {
@@ -151,11 +206,11 @@ const episodes = data.map(episode => {
 
 ### File System Rooting with Next.js
 
-- Every component created in the "pages" folder that does not begins with underline(_) and ends with .tsx are the archives that forms the routes of the application. 
+Every component created in the "pages" folder that does not begins with underline(_) and ends with .tsx are the archives that forms the routes of the application. 
 
 ### Dynamic SSG
 
-- To lead with dynamic SSG, you have to export a function from next.js
+To lead with dynamic SSG, you have to export a function from next.js
 
 ```JS
 import { GetStaticPaths, GetStaticProps } from 'next';
@@ -167,7 +222,11 @@ export const getStaticPaths: GetStaticPaths = async() => {
     // Paths that we want to generate statically
     paths: [],
     /* 
-      fallback blocking is the best option for SEO, because the requisitions will be charged on next.js server and the  page will only be rendered when next.js give a callback for the requisition.
+      fallback blocking is the best option for SEO,
+       because the requisitions will be charged on 
+       next.js server and the  page will only be 
+       rendered when next.js give a callback for 
+       the requisition.
     */
     fallback: 'blocking',
   }
@@ -175,4 +234,4 @@ export const getStaticPaths: GetStaticPaths = async() => {
 ```
 ### Context API
 
-- The context API allow our react app components to use properties or data from another component or even change it. In fact, we can share data between our application components.
+The context API allow our react app components to use properties or data from another component or even change it. In fact, we can share data between our application components.
